@@ -9,6 +9,7 @@ import { TaskFormComponent } from './components/task-form/task-form.component';
 import { TaskCreateComponent } from './pages/task-create/task-create.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MaterialModule } from '../../shared/material.module';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     MatDialogModule,
     MatButtonModule,
+    MaterialModule,
   ]
 })
 export class TasksModule { }

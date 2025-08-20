@@ -1,4 +1,8 @@
 <section class="page">
   <h1>Editar Proyecto</h1>
-  <app-project-form [initial]="initial" (submitForm)="onSubmit($event)"></app-project-form>
+  <app-project-form
+    [initial]="initial"
+    [currentId]="initial?.id"
+    (submitForm)="onSubmit($event)">
+  </app-project-form>
 </section>

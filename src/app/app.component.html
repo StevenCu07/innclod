@@ -3,7 +3,14 @@
     <a routerLink="/projects"><strong>Innclod</strong></a>
     <span class="spacer"></span>
     <a routerLink="/projects">Proyectos</a>
-    <button (click)="logout()">Logout</button>
+
+    <ng-container *ngIf="user$ | async as user; else loggedOut">
+      <span class="user">Hola, {{ user.name }}</span>
+      <button (click)="logout()">Logout</button>
+    </ng-container>
+    <ng-template #loggedOut>
+      <a routerLink="/auth">Login</a>
+    </ng-template>
   </nav>
 </header>
 

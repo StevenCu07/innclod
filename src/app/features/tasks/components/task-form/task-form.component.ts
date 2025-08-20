@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { Task } from '../../../projects/models/task.model';
+import { trimmedRequired } from '../../../../shared/validators';
 
 @Component({
   selector: 'app-task-form',
@@ -16,7 +18,7 @@ export class TaskFormComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(3)]],
+      title: ['', [trimmedRequired, Validators.minLength(3)]],
       completed: [false],
     });
     if (this.initial) this.form.patchValue(this.initial);

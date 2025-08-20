@@ -10,6 +10,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ProjectEditComponent } from './pages/project-edit/project-edit.component';
+import { MaterialModule } from '../../shared/material.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ProjectEditComponent } from './pages/project-edit/project-edit.componen
     ReactiveFormsModule,
     MatDialogModule,
     MatButtonModule,
+    MaterialModule,
   ]
 })
 export class ProjectsModule { }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from './core/services/auth.service';
+import { AuthService, AuthUser } from './core/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,11 @@ import { AuthService } from './core/services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private auth: AuthService, private router: Router) {}
+  user$: Observable<AuthUser | null>;
+
+  constructor(private auth: AuthService, private router: Router) {
+    this.user$ = this.auth.user$;
+  }
 
   logout() {
     this.auth.logout();

@@ -2,6 +2,24 @@
   <label>
     Título *
     <input type="text" formControlName="title" />
+    
+    <div class="err" *ngIf="f['title'].touched">
+      <ng-container *ngIf="f['title'].hasError('trimmedRequired')">
+        El título no puede estar vacío o solo espacios.
+      </ng-container>
+      <ng-container *ngIf="!f['title'].hasError('trimmedRequired') && f['title'].hasError('minlengthTrimmed')">
+        Debe tener al menos 3 caracteres.
+      </ng-container>
+      <ng-container
+        *ngIf="!f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlengthTrimmed') && f['title'].hasError('notUnique')">
+        Ya existe un proyecto con ese título.
+      </ng-container>
+      <ng-container
+        *ngIf="!f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlengthTrimmed') && f['title'].hasError('forbidden')">
+        Ese título no está permitido.
+      </ng-container>
+    </div>
+
   </label>
   <div class="err" *ngIf="f['title'].touched && f['title'].invalid">
     Debe tener al menos 3 caracteres.
