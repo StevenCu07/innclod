@@ -1,12 +1,15 @@
 <section class="projects">
   <h1>Proyectos</h1>
+  <a [routerLink]="['/projects','create']">+ Crear proyecto</a>
 
   <div *ngIf="loading">Cargando...</div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
   <ul *ngIf="!loading && !error">
     <li *ngFor="let p of projects">
-      <strong>#{{ p.id }} — {{ p.title }}</strong><br>
+      <a [routerLink]="['/projects', p.id, 'tasks']">
+        <strong>#{{ p.id }} — {{ p.title }}</strong>
+      </a><br>
       <small>{{ p.description }}</small>
     </li>
   </ul>

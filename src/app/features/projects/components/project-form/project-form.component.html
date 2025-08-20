@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+  <label>
+    Título *
+    <input type="text" formControlName="title" />
+  </label>
+  <div class="err" *ngIf="f['title'].touched && f['title'].invalid">
+    Debe tener al menos 3 caracteres.
+  </div>
+
+  <label>
+    Descripción *
+    <textarea rows="3" formControlName="description"></textarea>
+  </label>
+  <div class="err" *ngIf="f['description'].touched && f['description'].invalid">
+    Debe tener al menos 5 caracteres.
+  </div>
+
+  <button type="submit">Guardar</button>
+</form>
