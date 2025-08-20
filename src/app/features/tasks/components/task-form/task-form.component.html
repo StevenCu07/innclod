@@ -1,0 +1,16 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+  <label>
+    Título *
+    <input type="text" formControlName="title" />
+  </label>
+  <div class="err" *ngIf="f['title'].touched && f['title'].invalid">
+    Debe tener al menos 3 caracteres.
+  </div>
+
+  <label>
+    Completada
+    <input type="checkbox" formControlName="completed" />
+  </label>
+
+  <button type="submit">Guardar</button>
+</form>

@@ -1,13 +1,18 @@
 <section class="tasks">
-  <h1>Tareas</h1>
+  <h1>Tareas — {{ projectTitle }}</h1>
+  <a [routerLink]="['create']">+ Crear tarea</a>
 
   <div *ngIf="loading">Cargando...</div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
   <ul *ngIf="!loading && !error">
     <li *ngFor="let t of tasks">
-      <input type="checkbox" [checked]="t.completed" disabled />
+      <input #cb type="checkbox" [checked]="t.completed" (change)="toggleComplete(t, $event)" />
       {{ t.title }}
+      &nbsp;—&nbsp;
+      <a [routerLink]="[t.id, 'edit']">Editar</a>
+      &nbsp;|&nbsp;
+      <button (click)="confirmDelete(t.id)">Eliminar</button>
     </li>
   </ul>
 </section>
