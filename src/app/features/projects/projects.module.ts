@@ -6,18 +6,26 @@ import { ProjectsRoutingModule } from './projects-routing.module';
 import { ProjectsListComponent } from './pages/projects-list/projects-list.component';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
 import { ProjectCreateComponent } from './pages/project-create/project-create.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { ProjectEditComponent } from './pages/project-edit/project-edit.component';
 
 
 @NgModule({
   declarations: [
     ProjectsListComponent,
     ProjectFormComponent,
-    ProjectCreateComponent
+    ProjectCreateComponent,
+    ConfirmDialogComponent,
+    ProjectEditComponent
   ],
   imports: [
     CommonModule,
     ProjectsRoutingModule,
     ReactiveFormsModule,
+    MatDialogModule,
+    MatButtonModule,
   ]
 })
 export class ProjectsModule { }

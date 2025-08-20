@@ -9,7 +9,12 @@
     <li *ngFor="let p of projects">
       <a [routerLink]="['/projects', p.id, 'tasks']">
         <strong>#{{ p.id }} — {{ p.title }}</strong>
-      </a><br>
+      </a>
+      &nbsp;—&nbsp;
+      <a [routerLink]="['/projects', p.id, 'edit']">Editar</a>
+      &nbsp;|&nbsp;
+      <button (click)="confirmDelete(p.id)">Eliminar</button>
+      <br>
       <small>{{ p.description }}</small>
     </li>
   </ul>
