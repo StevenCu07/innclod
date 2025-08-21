@@ -40,16 +40,16 @@ ______________________________________________________________________________
 📂 Estructura del proyecto
 src/
 ├── app/
-│   ├── core/               # Servicios base, auth, interceptors
-│   ├── features/
-│   │   ├── projects/       # Módulo de proyectos
-│   │   │   ├── components/ # Formularios, listas, tarjetas
-│   │   │   └── services/
-│   │   ├── tasks/          # Módulo de tareas
-│   │   │   ├── components/
-│   │   │   └── services/
-│   ├── shared/             # Validadores, pipes y utilidades comunes
-│   └── app.module.ts
+│ ├── core/ # Servicios base, auth, interceptors
+│ ├── features/
+│ │ ├── projects/ # Módulo de proyectos
+│ │ │ ├── components/ # Formularios, listas, tarjetas
+│ │ │ └── services/
+│ │ ├── tasks/ # Módulo de tareas
+│ │ │ ├── components/
+│ │ │ └── services/
+│ ├── shared/ # Validadores, pipes y utilidades comunes
+│ └── app.module.ts
 └── assets/
 ______________________________________________________________________________
 
