@@ -1,15 +1,18 @@
 <header class="topbar">
   <nav class="container">
-    <a routerLink="/projects"><strong>Innclod</strong></a>
+    <a routerLink="/projects" class="brand">
+      <mat-icon>view_kanban</mat-icon>
+      <strong>Innclod</strong>
+    </a>
     <span class="spacer"></span>
-    <a routerLink="/projects">Proyectos</a>
+    <a mat-button routerLink="/projects"><mat-icon>folder</mat-icon>&nbsp;Proyectos</a>
 
     <ng-container *ngIf="user$ | async as user; else loggedOut">
       <span class="user">Hola, {{ user.name }}</span>
-      <button (click)="logout()">Logout</button>
+      <button mat-stroked-button (click)="logout()"><mat-icon>logout</mat-icon>&nbsp;Logout</button>
     </ng-container>
     <ng-template #loggedOut>
-      <a routerLink="/auth">Login</a>
+      <a mat-stroked-button routerLink="/auth"><mat-icon>login</mat-icon>&nbsp;Login</a>
     </ng-template>
   </nav>
 </header>

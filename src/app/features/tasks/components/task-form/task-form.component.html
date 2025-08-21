@@ -10,18 +10,19 @@
     <ng-container *ngIf="!f['title'].hasError('trimmedRequired') && f['title'].hasError('minlength')">
       Debe tener al menos 3 caracteres.
     </ng-container>
-    <ng-container *ngIf="!f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlength') && f['title'].hasError('notUnique')">
+    <ng-container
+      *ngIf="!f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlength') && f['title'].hasError('notUnique')">
       Ya existe un proyecto con ese título.
     </ng-container>
-    <ng-container *ngIf="!f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlength') && f['title'].hasError('forbidden')">
+    <ng-container
+      *ngIf="!f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlength') && f['title'].hasError('forbidden')">
       Ese título no está permitido.
     </ng-container>
   </div>
 
-  <label>
-    Completada
-    <input type="checkbox" formControlName="completed" />
-  </label>
+  <mat-checkbox formControlName="completed">Completada</mat-checkbox>
 
-  <button type="submit">Guardar</button>
+  <div class="actions">
+    <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
+  </div>
 </form>

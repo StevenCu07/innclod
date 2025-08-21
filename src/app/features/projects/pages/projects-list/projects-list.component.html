@@ -1,21 +1,90 @@
-<section class="projects">
-  <h1>Proyectos</h1>
-  <a [routerLink]="['/projects','create']">+ Crear proyecto</a>
+<section class="page">
+  <header class="page-bar">
+    <h1>Proyectos</h1>
+    <div class="actions">
+      <button mat-stroked-button color="primary" [routerLink]="['/projects','create']">
+        <mat-icon>add</mat-icon> Crear proyecto
+      </button>
+    </div>
+  </header>
 
-  <div *ngIf="loading">Cargando...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <div class="filters">
+    <mat-form-field appearance="outline" class="search">
+      <mat-label>Buscar</mat-label>
+      <input matInput [formControl]="search" placeholder="Título o descripción" />
+      <button *ngIf="search.value" matSuffix mat-icon-button aria-label="Limpiar" (click)="search.setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
 
-  <ul *ngIf="!loading && !error">
-    <li *ngFor="let p of projects">
-      <a [routerLink]="['/projects', p.id, 'tasks']">
-        <strong>#{{ p.id }} — {{ p.title }}</strong>
+    <div class="sort-view">
+      <mat-button-toggle-group [value]="sort" (change)="setSort($event.value)">
+        <mat-button-toggle value="title"><mat-icon>sort_by_alpha</mat-icon> Título</mat-button-toggle>
+        <mat-button-toggle value="id"><mat-icon>tag</mat-icon> ID</mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <mat-button-toggle-group [value]="view" (change)="setView($event.value)">
+        <mat-button-toggle value="cards"><mat-icon>grid_view</mat-icon></mat-button-toggle>
+        <mat-button-toggle value="list"><mat-icon>view_list</mat-icon></mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="count" *ngIf="!loading && !error">
+      {{ filtered.length }} resultado(s)
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="center">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <mat-card *ngIf="error" class="error-card">{{ error }}</mat-card>
+  <mat-card *ngIf="!loading && !error && filtered.length === 0" class="empty">
+    <mat-icon>inbox</mat-icon>
+    <div>No hay proyectos que coincidan.</div>
+  </mat-card>
+
+
+  <div *ngIf="!loading && !error && view==='cards'" class="grid">
+  <mat-card class="proj card-link"
+            *ngFor="let p of filtered" 
+            [routerLink]="['/projects', p.id, 'tasks']"
+            tabindex="0" role="link" [attr.aria-label]="'Abrir tareas de ' + p.title">
+    <mat-card-header>
+      <div mat-card-avatar class="avatar">{{ p.title | slice:0:1 }}</div>
+      <mat-card-title>{{ p.title }}</mat-card-title>
+      <mat-card-subtitle>#{{ p.id }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p class="desc">{{ p.description }}</p>
+    </mat-card-content>
+
+    <mat-card-actions align="end" class="inline-actions">
+      <a mat-button [routerLink]="['/projects', p.id, 'edit']">
+        <mat-icon>edit</mat-icon> Editar
       </a>
-      &nbsp;—&nbsp;
-      <a [routerLink]="['/projects', p.id, 'edit']">Editar</a>
-      &nbsp;|&nbsp;
-      <button (click)="confirmDelete(p.id)">Eliminar</button>
-      <br>
-      <small>{{ p.description }}</small>
-    </li>
-  </ul>
+      <button mat-button color="warn" (click)="$event.stopPropagation(); confirmDelete(p.id)">
+        <mat-icon>delete</mat-icon> Eliminar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+
+
+  <mat-list *ngIf="!loading && !error && view==='list'" class="list">
+    <mat-list-item *ngFor="let p of filtered">
+      <div class="li">
+        <div class="li-main">
+          <div class="li-title">{{ p.title }}</div>
+          <div class="li-sub">#{{ p.id }} · {{ p.description }}</div>
+        </div>
+        <div class="li-actions">
+          <a mat-button color="primary" [routerLink]="['/projects', p.id, 'tasks']">Tareas</a>
+          <a mat-button [routerLink]="['/projects', p.id, 'edit']">Editar</a>
+          <button mat-button color="warn" (click)="confirmDelete(p.id)">Eliminar</button>
+        </div>
+      </div>
+    </mat-list-item>
+  </mat-list>
 </section>

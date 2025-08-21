@@ -1,37 +1,29 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
-  <label>
-    Título *
-    <input type="text" formControlName="title" />
-    
-    <div class="err" *ngIf="f['title'].touched">
-      <ng-container *ngIf="f['title'].hasError('trimmedRequired')">
-        El título no puede estar vacío o solo espacios.
-      </ng-container>
-      <ng-container *ngIf="!f['title'].hasError('trimmedRequired') && f['title'].hasError('minlengthTrimmed')">
-        Debe tener al menos 3 caracteres.
-      </ng-container>
-      <ng-container
-        *ngIf="!f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlengthTrimmed') && f['title'].hasError('notUnique')">
-        Ya existe un proyecto con ese título.
-      </ng-container>
-      <ng-container
-        *ngIf="!f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlengthTrimmed') && f['title'].hasError('forbidden')">
-        Ese título no está permitido.
-      </ng-container>
-    </div>
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Título *</mat-label>
+    <input matInput formControlName="title" />
+    <mat-hint>3+ caracteres</mat-hint>
+    <mat-error *ngIf="f['title'].hasError('trimmedRequired')">
+      El título no puede estar vacío o solo espacios.
+    </mat-error>
+    <mat-error *ngIf="f['title'].hasError('minlengthTrimmed') && !f['title'].hasError('trimmedRequired')">
+      Debe tener al menos 3 caracteres.
+    </mat-error>
+    <mat-error *ngIf="f['title'].hasError('notUnique') && !f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlengthTrimmed')">
+      Ya existe un proyecto con ese título.
+    </mat-error>
+    <mat-error *ngIf="f['title'].hasError('forbidden') && !f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlengthTrimmed')">
+      Ese título no está permitido.
+    </mat-error>
+  </mat-form-field>
 
-  </label>
-  <div class="err" *ngIf="f['title'].touched && f['title'].invalid">
-    Debe tener al menos 3 caracteres.
-  </div>
-
-  <label>
-    Descripción *
-    <textarea rows="3" formControlName="description"></textarea>
-  </label>
-  <div class="err" *ngIf="f['description'].touched && f['description'].invalid">
-    Debe tener al menos 5 caracteres.
-  </div>
-
-  <button type="submit">Guardar</button>
-</form>
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Descripción *</mat-label>
+    <textarea matInput rows="3" formControlName="description"></textarea>
+    <mat-error *ngIf="f['description'].hasError('trimmedRequired')">
+      La descripción es requerida.
+    </mat-error>
+    <mat-error *ngIf="f['description'].hasError('minlengthTrimmed') && !f['description'].hasError('trimmedRequired')">
+      Debe tener al menos 5 caracteres.
+    </mat-error>
+  </mat-form-field>

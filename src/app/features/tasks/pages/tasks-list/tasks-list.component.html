@@ -1,18 +1,84 @@
-<section class="tasks">
-  <h1>Tareas — {{ projectTitle }}</h1>
-  <a [routerLink]="['create']">+ Crear tarea</a>
+<section class="page">
+  <header class="page-bar">
+    <h1>Tareas — {{ projectTitle }}</h1>
+    <div class="actions">
+      <a mat-stroked-button color="primary" [routerLink]="['create']">
+        <mat-icon>add_task</mat-icon> Crear tarea
+      </a>
+    </div>
+  </header>
 
-  <div *ngIf="loading">Cargando...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <div class="filters">
+    <mat-form-field appearance="outline" class="search">
+      <mat-label>Buscar tarea</mat-label>
+      <input matInput [formControl]="search" placeholder="Título" />
+      <button *ngIf="search.value" matSuffix mat-icon-button aria-label="Limpiar" (click)="search.setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
 
-  <ul *ngIf="!loading && !error">
-    <li *ngFor="let t of tasks">
-      <input #cb type="checkbox" [checked]="t.completed" (change)="toggleComplete(t, $event)" />
-      {{ t.title }}
-      &nbsp;—&nbsp;
-      <a [routerLink]="[t.id, 'edit']">Editar</a>
-      &nbsp;|&nbsp;
-      <button (click)="confirmDelete(t.id)">Eliminar</button>
-    </li>
-  </ul>
+    <mat-button-toggle-group [value]="view" (change)="setView($event.value)">
+      <mat-button-toggle value="list"><mat-icon>view_list</mat-icon></mat-button-toggle>
+      <mat-button-toggle value="cards"><mat-icon>grid_view</mat-icon></mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <div class="count" *ngIf="!loading && !error">{{ filtered.length }} resultado(s)</div>
+  </div>
+
+  <div *ngIf="loading" class="center">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <mat-card *ngIf="error" class="error-card">{{ error }}</mat-card>
+  <mat-card *ngIf="!loading && !error && filtered.length === 0" class="empty">
+    <mat-icon>inbox</mat-icon>
+    <div>No hay tareas. Crea la primera.</div>
+  </mat-card>
+
+<mat-list *ngIf="!loading && !error && view==='list'">
+  <mat-list-item *ngFor="let t of filtered">
+
+    <mat-checkbox
+      matListItemIcon
+      [checked]="t.completed"
+      (change)="toggleComplete(t, $event.checked)"
+      aria-label="Cambiar estado de {{ t.title }}">
+    </mat-checkbox>
+
+    <div matListItemTitle class="li-title">{{ t.title }}</div>
+    <div matListItemLine class="li-sub">{{ t.completed ? 'Completada' : 'Pendiente' }}</div>
+
+    <div matListItemMeta class="li-actions">
+      <a mat-button [routerLink]="[t.id, 'edit']">
+        <mat-icon>edit</mat-icon> Editar
+      </a>
+      <button mat-button color="warn" (click)="confirmDelete(t.id)">
+        <mat-icon>delete</mat-icon> Eliminar
+      </button>
+    </div>
+  </mat-list-item>
+</mat-list>
+
+
+  <div *ngIf="!loading && !error && view==='cards'" class="grid">
+    <mat-card class="task" *ngFor="let t of filtered">
+      <mat-card-title class="task-title">
+        <mat-checkbox
+          [checked]="t.completed"
+          (change)="toggleComplete(t, $event.checked)">
+        </mat-checkbox>
+        <span class="title">{{ t.title }}</span>
+      </mat-card-title>
+
+      <mat-card-subtitle>{{ t.completed ? 'Completada' : 'Pendiente' }}</mat-card-subtitle>
+
+      <mat-card-actions align="end">
+        <a mat-button [routerLink]="[t.id, 'edit']">
+          <mat-icon>edit</mat-icon> Editar
+        </a>
+        <button mat-button color="warn" (click)="confirmDelete(t.id)">
+          <mat-icon>delete</mat-icon> Eliminar
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </section>

@@ -42,7 +42,6 @@ private loadLocal(): Task[] {
 
     const fixed: Task[] = parsed.map((t: any) => {
       if (typeof t.projectId !== 'number') {
-        // Heurística estable para re-asignar (la API tenía userId 1..10)
         const pid = ((Number(t.id) - 1) % 10) + 1;
         changed = true;
         return { id: Number(t.id), title: String(t.title), completed: !!t.completed, projectId: pid };

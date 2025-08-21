@@ -1,0 +1,114 @@
+.page {
+    padding: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.page-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: .5rem 0 1rem;
+
+    h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+    .actions {
+        margin-left: auto;
+    }
+}
+
+.filters {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .75rem;
+    align-items: center;
+    margin-bottom: .75rem;
+
+    .search {
+        width: 100%;
+    }
+
+    .count {
+        grid-column: 1 / -1;
+        color: #64748b;
+        font-size: .9rem;
+    }
+}
+
+.center {
+    display: grid;
+    place-items: center;
+    min-height: 140px;
+}
+
+.error-card {
+    padding: 1rem;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.empty {
+    display: grid;
+    place-items: center;
+    gap: .5rem;
+    padding: 2rem;
+    color: #64748b;
+}
+
+.empty mat-icon {
+    font-size: 40px;
+    height: 40px;
+    width: 40px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.task mat-card-title {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+.task .title {
+    font-weight: 600;
+}
+
+.task .task-title {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+mat-list-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: .5rem;
+}
+
+.li-main {
+    padding-left: .5rem;
+}
+
+.li-title {
+    font-weight: 600;
+}
+
+.li-sub {
+    font-size: .85rem;
+    color: #64748b;
+}
+
+.li-actions {
+    display: flex;
+    gap: .25rem;
+    align-items: center;
+}
