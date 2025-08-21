@@ -1,28 +1,92 @@
-# Innclod
+Gestor de proyectos y tareas con Angular + Material Design, enfocado en una experiencia limpia, moderna y productiva.
+Permite manejar proyectos, crear tareas, validarlas con formularios reactivos y todo en una interfaz tipo Trello pero optimizada.
+______________________________________________________________________________
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.20.
+✨ Características principales
 
-## Development server
+🔐 Autenticación básica con usuarios de prueba (alice / bob con clave 1234).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+📂 Gestión de proyectos:
 
-## Code scaffolding
+Crear, editar, eliminar proyectos.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Validaciones avanzadas (mínimo 3 caracteres, unicidad, palabras prohibidas, etc.).
 
-## Build
+✅ Gestión de tareas:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Crear, editar y marcar como completadas.
 
-## Running unit tests
+Vista en lista o tarjetas (grid).
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Formularios reactivos con validaciones personalizadas.
 
-## Running end-to-end tests
+🎨 UI con Angular Material:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Formularios con mat-form-field, mat-card, mat-icon.
 
-## Further help
+Dark theme con tipografía moderna.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-# innclod
+Feedback inmediato con mat-error y mat-hint.
+
+⚡ Arquitectura modular:
+
+features/projects y features/tasks bien separados.
+
+Servicios centralizados (projects.service.ts, tasks.service.ts).
+
+🧪 Validaciones reutilizables en shared/validators.
+______________________________________________________________________________
+
+📂 Estructura del proyecto
+src/
+├── app/
+│   ├── core/               # Servicios base, auth, interceptors
+│   ├── features/
+│   │   ├── projects/       # Módulo de proyectos
+│   │   │   ├── components/ # Formularios, listas, tarjetas
+│   │   │   └── services/
+│   │   ├── tasks/          # Módulo de tareas
+│   │   │   ├── components/
+│   │   │   └── services/
+│   ├── shared/             # Validadores, pipes y utilidades comunes
+│   └── app.module.ts
+└── assets/
+______________________________________________________________________________
+
+⚙️ Instalación
+
+Clona este repositorio:
+
+git clone https://github.com/StevenCu07/innclod.git
+cd innclod
+
+
+Instala dependencias:
+
+npm install
+______________________________________________________________________________
+
+▶️ Ejecución en desarrollo
+ng serve -o
+
+
+Esto abrirá la aplicación en http://localhost:4200
+
+______________________________________________________________________________
+
+👤 Usuarios de prueba
+
+sofia / 1234
+
+carlos / 1234
+______________________________________________________________________________
+
+🧩 Validadores personalizados
+
+trimmedRequired → No permite strings vacíos ni solo espacios.
+
+minLenTrimmed(n) → Longitud mínima ignorando espacios extra.
+
+uniqueProjectTitle → Valida unicidad de títulos en proyectos.
+
+forbiddenWords([...]) → Bloquea palabras no permitidas (test, demo, etc.).
