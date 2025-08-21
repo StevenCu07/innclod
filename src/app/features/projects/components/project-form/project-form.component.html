@@ -1,29 +1,51 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
-  <mat-form-field appearance="outline" class="w-full">
-    <mat-label>Título *</mat-label>
-    <input matInput formControlName="title" />
-    <mat-hint>3+ caracteres</mat-hint>
-    <mat-error *ngIf="f['title'].hasError('trimmedRequired')">
-      El título no puede estar vacío o solo espacios.
-    </mat-error>
-    <mat-error *ngIf="f['title'].hasError('minlengthTrimmed') && !f['title'].hasError('trimmedRequired')">
-      Debe tener al menos 3 caracteres.
-    </mat-error>
-    <mat-error *ngIf="f['title'].hasError('notUnique') && !f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlengthTrimmed')">
-      Ya existe un proyecto con ese título.
-    </mat-error>
-    <mat-error *ngIf="f['title'].hasError('forbidden') && !f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlengthTrimmed')">
-      Ese título no está permitido.
-    </mat-error>
-  </mat-form-field>
+<mat-card class="form-card">
+  <mat-card-title>{{ currentId ? 'Editar proyecto' : 'Nuevo Proyecto' }}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Título *</mat-label>
+        <input matInput formControlName="title" />
+        <button *ngIf="f['title'].value" matSuffix mat-icon-button type="button" (click)="f['title'].setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-hint>3+ caracteres</mat-hint>
+        <mat-error *ngIf="f['title'].hasError('trimmedRequired')">
+          El título no puede estar vacío o solo espacios.
+        </mat-error>
+        <mat-error *ngIf="f['title'].hasError('minlengthTrimmed') && !f['title'].hasError('trimmedRequired')">
+          Debe tener al menos 3 caracteres.
+        </mat-error>
+        <mat-error *ngIf="f['title'].hasError('notUnique') && !f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlengthTrimmed')">
+          Ya existe un proyecto con ese título.
+        </mat-error>
+        <mat-error *ngIf="f['title'].hasError('forbidden') && !f['title'].hasError('trimmedRequired') && !f['title'].hasError('minlengthTrimmed')">
+          Ese título no está permitido.
+        </mat-error>
 
-  <mat-form-field appearance="outline" class="w-full">
-    <mat-label>Descripción *</mat-label>
-    <textarea matInput rows="3" formControlName="description"></textarea>
-    <mat-error *ngIf="f['description'].hasError('trimmedRequired')">
-      La descripción es requerida.
-    </mat-error>
-    <mat-error *ngIf="f['description'].hasError('minlengthTrimmed') && !f['description'].hasError('trimmedRequired')">
-      Debe tener al menos 5 caracteres.
-    </mat-error>
-  </mat-form-field>
+        <mat-progress-spinner *ngIf="f['title'].pending" diameter="16" mode="indeterminate" matSuffix></mat-progress-spinner>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Descripción *</mat-label>
+        <textarea matInput rows="3" formControlName="description" maxlength="280"></textarea>
+        <mat-hint align="end">{{ f['description'].value?.length || 0 }}/280</mat-hint>
+        <mat-error *ngIf="f['description'].hasError('trimmedRequired')">
+          La descripción es requerida.
+        </mat-error>
+        <mat-error *ngIf="f['description'].hasError('minlengthTrimmed') && !f['description'].hasError('trimmedRequired')">
+          Debe tener al menos 5 caracteres.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-stroked-button type="button" routerLink="/projects">
+          <mat-icon>arrow_back</mat-icon> Cancelar
+        </button>
+        <span class="spacer"></span>
+        <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || form.pending">
+          <mat-icon>save</mat-icon> Guardar
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

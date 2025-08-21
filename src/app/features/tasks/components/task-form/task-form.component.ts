@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { Task } from '../../../projects/models/task.model';
-import { trimmedRequired } from '../../../../shared/validators';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Task } from '../../../../features/projects/models/task.model';
+import { trimmedRequired, minLenTrimmed } from '../../../../shared/validators';
 
 @Component({
   selector: 'app-task-form',
@@ -14,20 +13,31 @@ export class TaskFormComponent implements OnInit, OnChanges {
   @Output() submitForm = new EventEmitter<Omit<Task, 'id'>>();
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  editMode = false;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      title: ['', [trimmedRequired, Validators.minLength(3)]],
+      title: ['', [trimmedRequired, minLenTrimmed(3)]],
       completed: [false],
     });
-    if (this.initial) this.form.patchValue(this.initial);
+    if (this.initial) {
+      this.form.patchValue(this.initial);
+      this.editMode = !!(this.initial as Task)?.id;
+    }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['initial'] && this.form) {
-      this.form.patchValue(this.initial ?? {});
+  ngOnChanges(): void {
+    if (this.form && this.initial) {
+      this.form.patchValue(this.initial);
     }
+    this.editMode = !!(this.initial as Task)?.id;
+  }
+
+  private normalize(): void {
+    const t = (this.f['title'].value ?? '').toString().trim().replace(/\s+/g, ' ');
+    this.form.patchValue({ title: t }, { emitEvent: false });
   }
 
   onSubmit(): void {
@@ -35,6 +45,7 @@ export class TaskFormComponent implements OnInit, OnChanges {
       this.form.markAllAsTouched();
       return;
     }
+    this.normalize();
     this.submitForm.emit(this.form.value);
   }
 

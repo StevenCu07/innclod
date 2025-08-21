@@ -77,10 +77,6 @@
     align-items: center;
 }
 
-.task .title {
-    font-weight: 600;
-}
-
 .task .task-title {
     display: flex;
     align-items: center;
@@ -96,10 +92,6 @@ mat-list-item {
 
 .li-main {
     padding-left: .5rem;
-}
-
-.li-title {
-    font-weight: 600;
 }
 
 .li-sub {

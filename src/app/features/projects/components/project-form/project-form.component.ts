@@ -16,33 +16,49 @@ export class ProjectFormComponent implements OnInit, OnChanges {
   @Output() submitForm = new EventEmitter<Omit<Project, 'id'>>();
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder, private projectsService: ProjectsService) {}
+  constructor(private fb: FormBuilder, private projectsService: ProjectsService) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-       title: [
+      title: [
         '',
-        [trimmedRequired, minLenTrimmed(3), forbiddenWords(['test','demo'])],
+        [trimmedRequired, minLenTrimmed(3), forbiddenWords(['test', 'demo'])],
         [uniqueProjectTitle(this.projectsService, () => this.currentId)]
       ],
-      description: ['', [Validators.required, Validators.minLength(5)]],
+      description: ['', [trimmedRequired, minLenTrimmed(5)]],
     });
     if (this.initial) this.form.patchValue(this.initial);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['initial'] && this.form) {
-      this.form.patchValue(this.initial ?? {});
+    if (!this.form) return;
+    if (changes['initial'] && this.initial) {
+      this.form.patchValue(this.initial);
     }
-  }
-
-  onSubmit(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
+    if (changes['currentId']) {
+      this.form.get('title')?.updateValueAndValidity({ onlySelf: true });
     }
-    this.submitForm.emit(this.form.value);
   }
 
   get f() { return this.form.controls; }
+
+  private normalize() {
+    const t = (this.f['title'].value ?? '').toString().trim();
+    const d = (this.f['description'].value ?? '').toString().trim();
+    const titleCased = t
+      .replace(/\s+/g, ' ')
+      .replace(/\b\p{L}/gu, (m: string) => m.toUpperCase()); // <- tip del callback
+
+    this.form.patchValue({ title: titleCased, description: d }, { emitEvent: false });
+  }
+
+  onSubmit(): void {
+    if (this.form.invalid || this.form.pending) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    this.normalize();
+    this.submitForm.emit(this.form.getRawValue());
+  }
 }
+

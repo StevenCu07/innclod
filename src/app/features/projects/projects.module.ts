@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { ProjectsRoutingModule } from './projects-routing.module';
 import { ProjectsListComponent } from './pages/projects-list/projects-list.component';
@@ -31,6 +32,7 @@ import { MaterialModule } from '../../shared/material.module';
     MatButtonModule,
     MaterialModule,
     MatButtonToggleModule,
+    MatProgressSpinnerModule,
   ]
 })
 export class ProjectsModule { }
