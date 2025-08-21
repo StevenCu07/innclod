@@ -1,6 +1,7 @@
 Gestor de proyectos y tareas con Angular + Material Design, enfocado en una experiencia limpia, moderna y productiva.
 Permite manejar proyectos, crear tareas, validarlas con formularios reactivos y todo en una interfaz tipo Trello pero optimizada.
-______________________________________________________________________________
+
+---
 
 ✨ Características principales
 
@@ -35,23 +36,8 @@ features/projects y features/tasks bien separados.
 Servicios centralizados (projects.service.ts, tasks.service.ts).
 
 🧪 Validaciones reutilizables en shared/validators.
-______________________________________________________________________________
 
-📂 Estructura del proyecto
-src/
-├── app/
-│   ├── core/               # Servicios base, auth, interceptors
-│   ├── features/
-│   │   ├── projects/       # Módulo de proyectos
-│   │   │   ├── components/ # Formularios, listas, tarjetas
-│   │   │   └── services/
-│   │   ├── tasks/          # Módulo de tareas
-│   │   │   ├── components/
-│   │   │   └── services/
-│   ├── shared/             # Validadores, pipes y utilidades comunes
-│   └── app.module.ts
-└── assets/
-______________________________________________________________________________
+---
 
 ⚙️ Instalación
 
@@ -60,26 +46,26 @@ Clona este repositorio:
 git clone https://github.com/StevenCu07/innclod.git
 cd innclod
 
-
 Instala dependencias:
 
 npm install
-______________________________________________________________________________
+
+---
 
 ▶️ Ejecución en desarrollo
 ng serve -o
 
-
 Esto abrirá la aplicación en http://localhost:4200
 
-______________________________________________________________________________
+---
 
 👤 Usuarios de prueba
 
 sofia / 1234
 
 carlos / 1234
-______________________________________________________________________________
+
+---
 
 🧩 Validadores personalizados
 
