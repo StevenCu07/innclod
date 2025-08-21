@@ -11,8 +11,8 @@ export interface AuthUser {
 }
 
 const USERS = [
-  { id: 1, username: 'Sofia', password: '1234', name: 'Sofia Herrera' },
-  { id: 2, username: 'Carlos',   password: '1234', name: 'Carlos Rodriguez' },
+  { id: 1, username: 'sofia', password: '1234', name: 'Sofia Herrera' },
+  { id: 2, username: 'carlos',   password: '1234', name: 'Carlos Rodriguez' },
 ];
 
 @Injectable({ providedIn: 'root' })
